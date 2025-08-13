@@ -62,19 +62,18 @@ class OrderServiceTest {
         }
 
         @Test
-        @DisplayName("place order when total is greater than zero")
-        void shouldPlaceAnOrderWhenTotalIsGreaterThanZero(){
+        @DisplayName("should throw exception when place order")
+        void shouldThrowExceptionWhenPlaceOrder(){
 
             //arrange
             Order dummyOrder=new Order(1,"random",5);
+            doThrow(new RuntimeException()).when(repository).save(any());
 
             //act
-            orderService.placeOrder(dummyOrder);
+            assertThrows(RuntimeException.class,()->{
+                orderService.placeOrder(dummyOrder);
+            });
 
-            //asert
-            verify(repository, times(1)).save(orderArgumentCaptor.capture());
-            var orderCaptured=orderArgumentCaptor.getValue();
-            assertSame(dummyOrder, orderCaptured);
         }
     }
 
@@ -101,7 +100,7 @@ class OrderServiceTest {
 
         @Test
         @DisplayName("Should return null when order doesn't exists")
-        void shouldGReturnNullWhenOrderDOesntExists(){
+        void shouldGReturnNullWhenOrderDoesntExists(){
 
             //arrange
             int idOrder=1;
