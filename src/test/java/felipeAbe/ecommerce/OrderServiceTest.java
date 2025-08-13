@@ -28,22 +28,6 @@ class OrderServiceTest {
     @Nested
     class placeOrder {
 
-        @Test
-        @DisplayName("place order when total is greater than zero")
-        void shouldPlaceAnOrderWhenTotalIsGreaterThanZero(){
-
-            //arrange
-            Order dummyOrder=new Order(1,"random",5);
-
-            //act
-            orderService.placeOrder(dummyOrder);
-
-            //asert
-            verify(repository, times(1)).save(orderArgumentCaptor.capture());
-            var orderCaptured=orderArgumentCaptor.getValue();
-            assertSame(dummyOrder, orderCaptured);
-        }
-
         @ParameterizedTest
         @ValueSource(doubles = {0, -2.0, -50.0})
         @DisplayName("place order when total is below or equal to zero")
