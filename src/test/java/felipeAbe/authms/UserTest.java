@@ -64,7 +64,7 @@ class UserTest {
         }
 
         @Test
-        @DisplayName("should throw exception when is null")
+        @DisplayName("should throw exception when password is null")
         void shouldThrowExceptionWhenNull(){
 
             //arrange
